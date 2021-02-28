@@ -1,21 +1,24 @@
 import { useParams } from "react-router-dom";
 import Word from "./Word";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
+import useFetch from "../hooks/useFetch";
 
 function Day() {
   const day = useParams().day;
-  // const {day} = useParams(); // bring the string from address
-  const [words, setWords] = useState([]);
+  const words = useFetch(`http://localhost:3001/words?day=${day}`); // custom hook
 
-  useEffect(() => {
-    fetch(`http://localhost:3001/words?day=${day}`)
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        setWords(data);
-      });
-  }, [day]);
+  // // const {day} = useParams(); // bring the string from address
+  // const [words, setWords] = useState([]);
+
+  // useEffect(() => {
+  //   fetch(`http://localhost:3001/words?day=${day}`)
+  //     .then((res) => {
+  //       return res.json();
+  //     })
+  //     .then((data) => {
+  //       setWords(data);
+  //     });
+  // }, [day]);
 
   return (
     <>
