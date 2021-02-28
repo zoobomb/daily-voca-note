@@ -4,15 +4,15 @@ function Header() {
   return (
     <div className='header'>
       <h1>
-        <Link to='/'>Toeic Voca (High)</Link>
+        <Link to='/'>My Vocabulary Note</Link>
       </h1>
       <div className='menu'>
-        <a href='#x' className='link'>
+        <Link to='/create_word' className='link'>
           Add Voca
-        </a>
-        <a href='#x' className='link'>
+        </Link>
+        <Link to='/create_day' className='link'>
           Add Day
-        </a>
+        </Link>
       </div>
     </div>
   );
