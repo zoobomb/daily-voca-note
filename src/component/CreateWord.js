@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 
@@ -6,28 +6,33 @@ import useFetch from "../hooks/useFetch";
 function CreateWord() {
   const days = useFetch("http://localhost:3001/days");
   const history = useHistory();
+  const [isLoading, setIsLoading] = useState(false);
 
   function onSubmit(e) {
     e.preventDefault();
     // console.log(engRef.current.value);
 
-    fetch(`http://localhost:3001/words/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        day: dayRef.current.value,
-        eng: engRef.current.value,
-        kor: korRef.current.value,
-        isDone: false, // default value
-      }),
-    }).then((res) => {
-      if (res.ok) {
-        alert("Successfully Added!");
-        history.push(`/day/${dayRef.current.value}`);
-      }
-    });
+    if (!isLoading) {
+      setIsLoading(true);
+      fetch(`http://localhost:3001/words/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          day: dayRef.current.value,
+          eng: engRef.current.value,
+          kor: korRef.current.value,
+          isDone: false, // default value
+        }),
+      }).then((res) => {
+        if (res.ok) {
+          alert("Successfully Added!");
+          history.push(`/day/${dayRef.current.value}`);
+          setIsLoading(false);
+        }
+      });
+    }
   }
 
   const engRef = useRef(null);
@@ -35,7 +40,7 @@ function CreateWord() {
   const dayRef = useRef(null);
 
   return (
-    <form>
+    <form onSubmit={onSubmit}>
       <div className='input_area'>
         <label>English</label>
         <input type='text' placeholder='New voca here' ref={engRef} />
@@ -54,7 +59,9 @@ function CreateWord() {
           ))}
         </select>
       </div>
-      <button onClick={onSubmit}>Save</button>
+      <button style={{ opacity: isLoading ? 0.3 : 1 }}>
+        {isLoading ? "Saving..." : "Save"}
+      </button>
     </form>
   );
 }

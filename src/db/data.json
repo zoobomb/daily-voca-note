@@ -116,6 +116,20 @@
       "kor": "사자",
       "isDone": false,
       "id": 18
+    },
+    {
+      "day": "1",
+      "eng": "",
+      "kor": "",
+      "isDone": false,
+      "id": 19
+    },
+    {
+      "day": "1",
+      "eng": "elephant",
+      "kor": "코끼리",
+      "isDone": false,
+      "id": 20
     }
   ]
 }

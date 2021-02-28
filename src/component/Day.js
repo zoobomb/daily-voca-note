@@ -23,6 +23,7 @@ function Day() {
   return (
     <>
       <h2>Day {day}</h2>
+      {words.length === 0 && <span>"LOADING........"</span>}
       <table>
         <tbody>
           {words.map((word) => (
